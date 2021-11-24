@@ -1,5 +1,4 @@
-import { NameLabelPair } from './basic';
-import { MappedTuple } from './util';
+import { NameLabelPair } from "./basic";
 
 export interface RuleType {
   path?: number[];
@@ -30,25 +29,29 @@ export type RuleGroupArray =
   | [RuleType | RuleGroupType, ...(RuleType | RuleGroupType)[]]
   | (any[] & { length: 0 });
 export type RuleGroupICArray =
-  | [RuleType | RuleGroupTypeIC, ...MappedTuple<[string, RuleType | RuleGroupTypeIC]>]
+  | [RuleType | RuleGroupTypeIC, string, RuleType | RuleGroupTypeIC]
   | (any[] & { length: 0 });
 export type RuleOrGroupArray = RuleGroupArray | RuleGroupICArray;
 
-export type DefaultRuleGroupArray =
-  | [DefaultRuleType | DefaultRuleGroupType, ...(DefaultRuleType | DefaultRuleGroupType)[]]
-  | (any[] & { length: 0 });
+export type DefaultRuleGroupArray = (DefaultRuleType | DefaultRuleGroupType)[];
 export type DefaultRuleGroupICArray =
   | [
       DefaultRuleType | DefaultRuleGroupTypeIC,
-      ...MappedTuple<[DefaultCombinatorName, DefaultRuleType | DefaultRuleGroupTypeIC]>
+      DefaultCombinatorName,
+      DefaultRuleType | DefaultRuleGroupTypeIC
     ]
   | (any[] & { length: 0 });
-export type DefaultRuleOrGroupArray = DefaultRuleGroupArray | DefaultRuleGroupICArray;
+export type DefaultRuleOrGroupArray =
+  | DefaultRuleGroupArray
+  | DefaultRuleGroupICArray;
 
 export interface DefaultRuleGroupType extends RuleGroupType {
   combinator: DefaultCombinatorName;
   rules:
-    | [DefaultRuleGroupType | DefaultRuleType, ...(DefaultRuleGroupType | DefaultRuleType)[]]
+    | [
+        DefaultRuleGroupType | DefaultRuleType,
+        ...(DefaultRuleGroupType | DefaultRuleType)[]
+      ]
     | (any[] & { length: 0 });
 }
 
@@ -56,38 +59,41 @@ export interface DefaultRuleGroupTypeIC extends RuleGroupTypeIC {
   rules:
     | [
         DefaultRuleType | DefaultRuleGroupTypeIC,
-        ...MappedTuple<[DefaultCombinatorName, DefaultRuleType | DefaultRuleGroupTypeIC]>
+        DefaultCombinatorName,
+        DefaultRuleType | DefaultRuleGroupTypeIC
       ]
     | (any[] & { length: 0 });
 }
 
-export type DefaultRuleGroupTypeAny = DefaultRuleGroupType | DefaultRuleGroupTypeIC;
+export type DefaultRuleGroupTypeAny =
+  | DefaultRuleGroupType
+  | DefaultRuleGroupTypeIC;
 
 export interface DefaultRuleType extends RuleType {
   operator: DefaultOperatorName;
 }
 
-export type DefaultCombinatorName = 'and' | 'or';
+export type DefaultCombinatorName = "and" | "or";
 
 export type DefaultOperatorName =
-  | '='
-  | '!='
-  | '<'
-  | '>'
-  | '<='
-  | '>='
-  | 'contains'
-  | 'beginsWith'
-  | 'endsWith'
-  | 'doesNotContain'
-  | 'doesNotBeginWith'
-  | 'doesNotEndWith'
-  | 'null'
-  | 'notNull'
-  | 'in'
-  | 'notIn'
-  | 'between'
-  | 'notBetween';
+  | "="
+  | "!="
+  | "<"
+  | ">"
+  | "<="
+  | ">="
+  | "contains"
+  | "beginsWith"
+  | "endsWith"
+  | "doesNotContain"
+  | "doesNotBeginWith"
+  | "doesNotEndWith"
+  | "null"
+  | "notNull"
+  | "in"
+  | "notIn"
+  | "between"
+  | "notBetween";
 
 export interface DefaultCombinator extends NameLabelPair {
   name: DefaultCombinatorName;
