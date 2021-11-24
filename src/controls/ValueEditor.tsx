@@ -1,5 +1,5 @@
 import type { ValueEditorProps } from "../types";
 
-export const ValueEditor = ({}: ValueEditorProps) => {
-  return <div>Test</div>;
+export const ValueEditor = ({ someValue }: ValueEditorProps) => {
+  return <div>{someValue}</div>;
 };
