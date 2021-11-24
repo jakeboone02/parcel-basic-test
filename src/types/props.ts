@@ -1,11 +1,4 @@
 import type { Field, NameLabelPair, ValueEditorType } from './basic';
-import type {
-  RuleGroupType,
-  RuleGroupTypeAny,
-  RuleGroupTypeIC,
-  RuleOrGroupArray,
-  RuleType
-} from './ruleGroups';
 
 export interface CommonProps {
   /**
@@ -39,7 +32,7 @@ export interface ActionWithRulesProps extends ActionProps {
   /**
    * Rules already present for this group
    */
-  rules?: RuleOrGroupArray;
+  rules?: any[];
 }
 
 export interface SelectorEditorProps extends CommonProps {
@@ -58,7 +51,7 @@ export interface NotToggleProps extends CommonProps {
 }
 
 export interface CombinatorSelectorProps extends ValueSelectorProps {
-  rules?: RuleOrGroupArray;
+  rules?: any[];
 }
 
 export interface FieldSelectorProps extends ValueSelectorProps {
@@ -180,21 +173,21 @@ export interface Schema {
   classNames: Classnames;
   combinators: { name: string; label: string }[];
   controls: Controls;
-  createRule(): RuleType;
-  createRuleGroup(): RuleGroupTypeAny;
+  createRule(): any;
+  createRuleGroup(): any;
   getOperators(field: string): NameLabelPair[];
   getValueEditorType(field: string, operator: string): ValueEditorType;
   getInputType(field: string, operator: string): string | null;
   getValues(field: string, operator: string): NameLabelPair[];
-  isRuleGroup(ruleOrGroup: RuleType | RuleGroupTypeAny): ruleOrGroup is RuleGroupTypeAny;
-  onGroupAdd(group: RuleGroupTypeAny, parentPath: number[]): void;
+  isRuleGroup(ruleOrGroup: any | any): ruleOrGroup is any;
+  onGroupAdd(group: any, parentPath: number[]): void;
   onGroupRemove(path: number[]): void;
   onPropChange(
-    prop: Exclude<keyof RuleType | keyof RuleGroupType, 'id' | 'path'>,
+    prop: string,
     value: any,
     path: number[]
   ): void;
-  onRuleAdd(rule: RuleType, parentPath: number[]): void;
+  onRuleAdd(rule: any, parentPath: number[]): void;
   onRuleRemove(path: number[]): void;
   updateIndependentCombinator(value: string, path: number[]): void;
   moveRule(oldPath: number[], newPath: number[], clone?: boolean): void;
@@ -259,7 +252,7 @@ export interface RuleGroupProps {
   id?: string;
   path: number[];
   combinator?: string;
-  rules: RuleOrGroupArray;
+  rules: any[];
   translations: Translations;
   schema: Schema;
   not?: boolean;
@@ -277,14 +270,14 @@ export interface RuleProps {
   context?: any;
 }
 
-export type QueryBuilderProps<RG extends RuleGroupType | RuleGroupTypeIC = RuleGroupType> = Omit<
+export type QueryBuilderProps<RG extends any> = Omit<
   QueryBuilderPropsInternal<RG>,
   'independentCombinators'
 > & {
   independentCombinators?: boolean;
 };
 
-export type QueryBuilderPropsInternal<RG extends RuleGroupType | RuleGroupTypeIC = RuleGroupType> =
+export type QueryBuilderPropsInternal<RG extends any> =
   {
     /**
      * Initial query object for uncontrolled components
@@ -347,7 +340,7 @@ export type QueryBuilderPropsInternal<RG extends RuleGroupType | RuleGroupTypeIC
     /**
      * Returns the default value for new rules.
      */
-    getDefaultValue?(rule: RuleType): any;
+    getDefaultValue?(rule: any): any;
     /**
      * This is a callback function invoked to get the list of allowed
      * operators for the given field. If `null` is returned, the default
@@ -376,12 +369,12 @@ export type QueryBuilderPropsInternal<RG extends RuleGroupType | RuleGroupTypeIC
     /**
      * Allows and/or configuration between rules
      */
-    independentCombinators: RG extends RuleGroupType ? false : true;
+    independentCombinators: RG extends any ? false : true;
     /**
      * This callback is invoked before a new rule is added. The function should either manipulate
      * the rule and return it, or return `false` to cancel the addition of the rule.
      */
-    onAddRule?(rule: RuleType, parentPath: number[], query: RG): RuleType | false;
+    onAddRule?(rule: any, parentPath: number[], query: RG): any | false;
     /**
      * This callback is invoked before a new group is added. The function should either manipulate
      * the group and return it, or return `false` to cancel the addition of the group.
