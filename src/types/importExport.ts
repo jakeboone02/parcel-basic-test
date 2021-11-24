@@ -1,5 +1,3 @@
-import { QueryValidator, RuleValidator } from './validation';
-
 export type ExportFormat =
   | 'json'
   | 'sql'
@@ -29,12 +27,12 @@ export interface FormatQueryOptions {
    * Validator function for the entire query. Can be the same function passed
    * as `validator` prop to `<QueryBuilder />`.
    */
-  validator?: QueryValidator;
+  validator?(): any;
   /**
    * This can be the same Field[] passed to <QueryBuilder />, but really
    * all you need to provide is the name and validator for each field.
    */
-  fields?: { name: string; validator?: RuleValidator; [k: string]: any }[];
+  fields?: { name: string; validator?(): any; [k: string]: any }[];
   /**
    * This string will be inserted in place of invalid groups for "sql",
    * "parameterized", "parameterized_named", and "mongodb" formats.

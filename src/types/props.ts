@@ -6,7 +6,6 @@ import type {
   RuleOrGroupArray,
   RuleType
 } from './ruleGroups';
-import type { QueryValidator, ValidationMap, ValidationResult } from './validation';
 
 export interface CommonProps {
   /**
@@ -28,7 +27,7 @@ export interface CommonProps {
   /**
    * Validation result of the parent component
    */
-  validation?: boolean | ValidationResult;
+  validation?: boolean | any;
 }
 
 export interface ActionProps extends CommonProps {
@@ -205,7 +204,7 @@ export interface Schema {
   autoSelectField: boolean;
   addRuleToNewGroups: boolean;
   enableDragAndDrop: boolean;
-  validationMap: ValidationMap;
+  validationMap: any;
   independentCombinators: boolean;
 }
 
@@ -437,7 +436,7 @@ export type QueryBuilderPropsInternal<RG extends RuleGroupType | RuleGroupTypeIC
     /**
      * Query validation function
      */
-    validator?: QueryValidator;
+    validator?(): any;
     /**
      * Container for custom props that are passed to all components
      */

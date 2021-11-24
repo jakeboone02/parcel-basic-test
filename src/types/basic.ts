@@ -1,5 +1,3 @@
-import { RuleValidator } from './validation';
-
 export type ValueEditorType = 'text' | 'select' | 'checkbox' | 'radio' | null;
 
 export interface NameLabelPair {
@@ -17,7 +15,7 @@ export interface Field extends NameLabelPair {
   defaultOperator?: string;
   defaultValue?: any;
   placeholder?: string;
-  validator?: RuleValidator;
+  validator?(): any;
 }
 
 export interface DraggedItem {
