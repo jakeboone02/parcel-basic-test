@@ -23,47 +23,6 @@ export interface CommonProps {
   validation?: boolean | any;
 }
 
-export interface ActionProps extends CommonProps {
-  label?: string;
-  handleOnClick(e: React.MouseEvent): void;
-}
-
-export interface ActionWithRulesProps extends ActionProps {
-  /**
-   * Rules already present for this group
-   */
-  rules?: any[];
-}
-
-export interface SelectorEditorProps extends CommonProps {
-  value?: string;
-  handleOnChange(value: any): void;
-}
-
-export interface ValueSelectorProps extends SelectorEditorProps {
-  options: NameLabelPair[];
-}
-
-export interface NotToggleProps extends CommonProps {
-  checked?: boolean;
-  handleOnChange(checked: boolean): void;
-  label?: string;
-}
-
-export interface CombinatorSelectorProps extends ValueSelectorProps {
-  rules?: any[];
-}
-
-export interface FieldSelectorProps extends ValueSelectorProps {
-  options: Field[];
-  operator?: string;
-}
-
-export interface OperatorSelectorProps extends ValueSelectorProps {
-  field: string;
-  fieldData: Field;
-}
-
 export interface ValueEditorProps extends CommonProps {
   handleOnChange(value: any): void;
   field: string;
@@ -73,201 +32,6 @@ export interface ValueEditorProps extends CommonProps {
   inputType?: any;
   values?: any[];
   value?: any;
-}
-
-export interface DragHandleProps extends CommonProps {
-  label?: string;
-}
-
-export interface Controls {
-  addGroupAction: React.ComponentType<ActionWithRulesProps>;
-  addRuleAction: React.ComponentType<ActionWithRulesProps>;
-  cloneGroupAction: React.ComponentType<ActionWithRulesProps>;
-  cloneRuleAction: React.ComponentType<ActionProps>;
-  combinatorSelector: React.ComponentType<CombinatorSelectorProps>;
-  dragHandle: any;
-  fieldSelector: React.ComponentType<FieldSelectorProps>;
-  notToggle: React.ComponentType<NotToggleProps>;
-  operatorSelector: React.ComponentType<OperatorSelectorProps>;
-  removeGroupAction: React.ComponentType<ActionWithRulesProps>;
-  removeRuleAction: React.ComponentType<ActionProps>;
-  rule: React.ComponentType<RuleProps>;
-  ruleGroup: React.ComponentType<RuleGroupProps>;
-  valueEditor: React.ComponentType<ValueEditorProps>;
-}
-
-export interface Classnames {
-  /**
-   * Root `<div>` element
-   */
-  queryBuilder: string;
-  /**
-   * `<div>` containing the RuleGroup
-   */
-  ruleGroup: string;
-  /**
-   * `<div>` containing the RuleGroup header controls
-   */
-  header: string;
-  /**
-   * `<div>` containing the RuleGroup child rules/groups
-   */
-  body: string;
-  /**
-   * `<select>` control for combinators
-   */
-  combinators: string;
-  /**
-   * `<button>` to add a Rule
-   */
-  addRule: string;
-  /**
-   * `<button>` to add a RuleGroup
-   */
-  addGroup: string;
-  /**
-   * `<button>` to clone a Rule
-   */
-  cloneRule: string;
-  /**
-   * `<button>` to clone a RuleGroup
-   */
-  cloneGroup: string;
-  /**
-   * `<button>` to remove a RuleGroup
-   */
-  removeGroup: string;
-  /**
-   * `<div>` containing the Rule
-   */
-  rule: string;
-  /**
-   * `<select>` control for fields
-   */
-  fields: string;
-  /**
-   * `<select>` control for operators
-   */
-  operators: string;
-  /**
-   * `<input>` for the field value
-   */
-  value: string;
-  /**
-   * `<button>` to remove a Rule
-   */
-  removeRule: string;
-  /**
-   * `<label>` on the "not" toggle
-   */
-  notToggle: string;
-  /**
-   * `<span>` handle for dragging rules/groups
-   */
-  dragHandle: string;
-}
-
-export interface Schema {
-  fields: Field[];
-  fieldMap: { [k: string]: Field };
-  classNames: Classnames;
-  combinators: { name: string; label: string }[];
-  controls: Controls;
-  createRule(): any;
-  createRuleGroup(): any;
-  getOperators(field: string): NameLabelPair[];
-  getValueEditorType(field: string, operator: string): ValueEditorType;
-  getInputType(field: string, operator: string): string | null;
-  getValues(field: string, operator: string): NameLabelPair[];
-  isRuleGroup(ruleOrGroup: any | any): ruleOrGroup is any;
-  onGroupAdd(group: any, parentPath: number[]): void;
-  onGroupRemove(path: number[]): void;
-  onPropChange(
-    prop: string,
-    value: any,
-    path: number[]
-  ): void;
-  onRuleAdd(rule: any, parentPath: number[]): void;
-  onRuleRemove(path: number[]): void;
-  updateIndependentCombinator(value: string, path: number[]): void;
-  moveRule(oldPath: number[], newPath: number[], clone?: boolean): void;
-  showCombinatorsBetweenRules: boolean;
-  showNotToggle: boolean;
-  showCloneButtons: boolean;
-  autoSelectField: boolean;
-  addRuleToNewGroups: boolean;
-  enableDragAndDrop: boolean;
-  validationMap: any;
-  independentCombinators: boolean;
-}
-
-export interface Translations {
-  fields: {
-    title: string;
-  };
-  operators: {
-    title: string;
-  };
-  value: {
-    title: string;
-  };
-  removeRule: {
-    label: string;
-    title: string;
-  };
-  removeGroup: {
-    label: string;
-    title: string;
-  };
-  addRule: {
-    label: string;
-    title: string;
-  };
-  addGroup: {
-    label: string;
-    title: string;
-  };
-  combinators: {
-    title: string;
-  };
-  notToggle: {
-    label: string;
-    title: string;
-  };
-  cloneRule: {
-    label: string;
-    title: string;
-  };
-  cloneRuleGroup: {
-    label: string;
-    title: string;
-  };
-  dragHandle: {
-    label: string;
-    title: string;
-  };
-}
-
-export interface RuleGroupProps {
-  id?: string;
-  path: number[];
-  combinator?: string;
-  rules: any[];
-  translations: Translations;
-  schema: Schema;
-  not?: boolean;
-  context?: any;
-}
-
-export interface RuleProps {
-  id?: string;
-  path: number[];
-  field: string;
-  operator: string;
-  value: any;
-  translations: Translations;
-  schema: Schema;
-  context?: any;
 }
 
 export type QueryBuilderProps<RG extends any> = Omit<
@@ -325,7 +89,7 @@ export type QueryBuilderPropsInternal<RG extends any> =
      * ]
      */
     combinators?: NameLabelPair[];
-    controlElements?: Partial<Controls>;
+    controlElements?: any;
     enableMountQueryChange?: boolean;
     /**
      * The default field for new rules. This can be a string identifying the
@@ -388,12 +152,12 @@ export type QueryBuilderPropsInternal<RG extends any> =
      * This can be used to assign specific CSS classes to various controls
      * that are created by the `<QueryBuilder />`.
      */
-    controlClassnames?: Partial<Classnames>;
+    controlClassnames?: any;
     /**
      * This can be used to override translatable texts applied to various
      * controls that are created by the `<QueryBuilder />`.
      */
-    translations?: Partial<Translations>;
+    translations?: any;
     /**
      * Show the combinators between rules and rule groups instead of at the top of rule groups.
      */
