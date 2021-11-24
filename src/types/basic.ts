@@ -1,7 +1,6 @@
 export interface NameLabelPair {
   name: string;
   label: string;
-  [x: string]: any;
 }
 
 export interface Field extends NameLabelPair {
